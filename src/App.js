@@ -1,28 +1,24 @@
-
+import React,{createContext, useState} from 'react';
+import Header from './Component/Header/Header';
 import './App.css';
-import Header from './components/Header';
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
-import TenderCards from './components/TenderCards';
-import SwipeButton from './components/SwipeButton';
-import Chart from './components/Chart'
-import Charts from './components/Charts';
-import ChatScreen from './components/ChatScreen';
+import Sidebar from './Component/Sidebar/Sidebar';
+
+ export const datacontext=createContext(false)
+ export const countcontext=createContext(false)
 
 function App() {
+  const[data,setdata]=useState('');
+  const[count,setcount]=useState(0)
   return (
-    <div className="App">
-      <Router>
-     
-        <Routes>
-
-          <Route path="/" element={[<Header />,<TenderCards />,<SwipeButton />]} />
-          <Route path="/charts" element={[<Header  backButton='/' />, <Chart />]} />
-          <Route path="/charts/:person" element={[<Header  backButton='/charts' /> ,< ChatScreen />]} />
-        </Routes>
-
-      </Router>
-   
+    <datacontext.Provider value={[data,setdata]}  >
+    <div>
+     <countcontext.Provider value={[count,setcount]}
+>
+       <Header />
+      <Sidebar />
+      </countcontext.Provider>
     </div>
+    </datacontext.Provider>
   );
 }
 
